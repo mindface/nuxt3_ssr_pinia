@@ -9,8 +9,9 @@ export interface Method {
   status: string;
 }
 
-export const useMethodStore = defineStore("method", () => 
-  {
+export const useMethodStore = defineStore(
+  "method",
+  () => {
     const methods = ref<Method[]>([]);
     async function getMethod(items: Method[]) {
       methods.value = [...items];
@@ -20,13 +21,18 @@ export const useMethodStore = defineStore("method", () =>
       methods.value = [...methods.value, item];
     }
     function removeMethod(id: number) {
-      const reTodo = methods.value.filter((item: Method, index: number) => {
-        if(id !== item.id ) {
+      const reTodo = methods.value.filter((item: Method) => {
+        if (id !== item.id) {
           return item;
         }
       });
       methods.value = reTodo;
     }
     return { methods, getMethod, addMethod, removeMethod };
-  }
+  },
+  // {
+  //   persist: {
+  //     storage: persistedState.sessionStorage,
+  //   },
+  // }
 );

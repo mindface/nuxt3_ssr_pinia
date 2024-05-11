@@ -1,12 +1,19 @@
-<script setup lang="ts">
-const route = useRoute()
+<script lang="ts">
+import { useRoute, defineNuxtComponent } from "#app";
+import { ref } from "vue";
 
-// When accessing /posts/1, route.params.id will be 1
-const id = ref(route.params.id);
+export default defineNuxtComponent({
+  name: "[id]-post",
+  setup() {
+    const route = useRoute();
+    const id = ref(route.params.id);
+    return {
+      id,
+    };
+  },
+});
 </script>
 
 <template>
-  <div class="wrapper">
-    id {{ id }}
-  </div>
+  <div class="wrapper">id {{ id }}</div>
 </template>

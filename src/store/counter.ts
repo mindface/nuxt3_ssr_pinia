@@ -1,11 +1,11 @@
-import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 
-export const useCounterStore = defineStore("counter", () => 
-  {
+export const useCounterStore = defineStore(
+  "counter",
+  () => {
     const count = ref(0);
     function increment() {
-        count.value++;
+      count.value++;
     }
     return { count, increment };
   },
@@ -13,5 +13,5 @@ export const useCounterStore = defineStore("counter", () =>
     persist: {
       storage: persistedState.sessionStorage,
     },
-  }
+  },
 );

@@ -1,27 +1,25 @@
 <!-- Please remove this file from your project -->
 <template>
-<client-only>
-<div class="method-view">
-  <section class="section">
-    <article class="article">
-      | article
-    </article>
-    <div class="todo-box">
-      <div class="todo-input-box">
-        <input type="text" v-model="title" />
-        <input type="text" v-model="body" />
-        <input type="date" v-model="date" />
-        <input type="submit" value="add" @click="addMethodAction" />
-      </div>
-      <div class="todo-box" v-for="item, index in methods" :key="index">
-        <methods-card :item="item" @set-method="setMethod" />
-      </div>
+  <client-only>
+    <div class="method-view">
+      <section class="section">
+        <article class="article">| article</article>
+        <div class="todo-box">
+          <div class="todo-input-box">
+            <input type="text" v-model="title" />
+            <input type="text" v-model="body" />
+            <input type="date" v-model="date" />
+            <input type="submit" value="add" @click="addMethodAction" />
+          </div>
+          <div class="todo-box" v-for="(item, index) in methods" :key="index">
+            <methods-card :item="item" @set-method="setMethod" />
+          </div>
+        </div>
+      </section>
     </div>
-  </section>
-</div>
-</client-only>
+  </client-only>
 </template>
-  
+
 <script lang="ts">
 import { onMounted } from "vue";
 import { useMethodStore } from "@/store/method";
@@ -30,12 +28,12 @@ import { storeToRefs } from "pinia";
 import MethodsCard from "./MethodsCard.vue";
 
 export default defineNuxtComponent({
-  name: 'MethodsView',
+  name: "MethodsView",
   components: {
-    MethodsCard
+    MethodsCard,
   },
   setup() {
-    const methodStore = useMethodStore(); 
+    const methodStore = useMethodStore();
     const { getMethod, addMethod, removeMethod } = methodStore;
     const { methods } = storeToRefs(methodStore);
 
@@ -61,21 +59,21 @@ export default defineNuxtComponent({
       });
       const method = await res.json();
       getMethod(method);
-    }
+    };
 
     const setUpdateMethod = (item: Method) => {
       title.value = item.title;
       body.value = item.body;
-      methodItem.value = {...item};
-    }
+      methodItem.value = { ...item };
+    };
 
     const addMethodAction = async () => {
       const addItem = {
-        id: methods.value.length+1,
+        id: methods.value.length + 1,
         title: title.value,
         body: body.value,
-        cycleTypeIeds: date.value.replace(/-/g,""),
-        status: "run"
+        cycleTypeIeds: date.value.replace(/-/g, ""),
+        status: "run",
       };
       try {
         const res = await fetch(`http://localhost:3003/v1/method_infos`, {
@@ -83,14 +81,14 @@ export default defineNuxtComponent({
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(addItem)
+          body: JSON.stringify(addItem),
         });
         const response = await res.json();
-        setMethod();          
+        setMethod();
       } catch (error) {
         console.log(error);
       }
-    }
+    };
 
     onMounted(async () => {
       setMethod();
@@ -103,9 +101,8 @@ export default defineNuxtComponent({
       addMethodAction,
       title,
       body,
-      date
-    }
-  }
+      date,
+    };
+  },
 });
 </script>
-  

@@ -1,16 +1,17 @@
 <template>
-<div class="wrapper">
-  <methods-view />
-</div>
+  <div class="wrapper">
+    <methods-view />
+  </div>
 </template>
 
 <script lang="ts">
+import { defineNuxtComponent } from "#app";
 import MethodsView from "../components/MethodsView.vue";
 
 export default defineNuxtComponent({
-  name: 'IndexPage',
+  name: "IndexPage",
   components: {
-    MethodsView
-  }
+    MethodsView,
+  },
 });
 </script>

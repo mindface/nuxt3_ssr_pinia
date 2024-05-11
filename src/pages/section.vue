@@ -1,11 +1,11 @@
 <template>
-<div class="wrapper">
-  section
-</div>
+  <div class="wrapper">section</div>
 </template>
 
 <script lang="ts">
+import { defineNuxtComponent } from "#app";
+
 export default defineNuxtComponent({
-  name: 'SectionPage',
+  name: "SectionPage",
 });
 </script>

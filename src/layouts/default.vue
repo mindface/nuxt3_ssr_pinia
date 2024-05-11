@@ -1,21 +1,23 @@
 <script lang="ts">
+import { defineNuxtComponent } from "#app";
 import BaseHeader from "../components/BaseHeader.vue";
-export default {
-  name: 'default',
+
+export default defineNuxtComponent({
+  name: "default-wrapper",
   components: {
-    BaseHeader
+    BaseHeader,
   },
   setup() {
-    return {}
-  }
-}
+    return {};
+  },
+});
 </script>
 
 <template>
-<div class="wrapper-box">
-  <base-header />
-  <slot />
-</div>
+  <div class="wrapper-box">
+    <base-header />
+    <slot />
+  </div>
 </template>
 
 <style>
