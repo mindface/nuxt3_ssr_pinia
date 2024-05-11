@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt'
   ],
   app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       title: 'investigation',
       meta: [{ name: 'description', content: 'investigation' }],

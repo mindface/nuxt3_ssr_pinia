@@ -13,10 +13,10 @@
 </template>
 
 <script>
-export default {
+export default defineNuxtComponent({
   name: 'BaseHeader',
   setup() {
     return {}
   }
-}
+});
 </script>

@@ -28,7 +28,7 @@
 import { useTodoStore } from "@/store/todo";
 import { storeToRefs } from "pinia";
 
-export default {
+export default defineNuxtComponent({
   name: 'MethodsView',
   setup() {
       const todoStore = useTodoStore(); 
@@ -61,6 +61,6 @@ export default {
       date
     }
   }
-}
+});
 </script>
   

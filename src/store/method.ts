@@ -29,10 +29,5 @@ export const useMethodStore = defineStore("method", () =>
       methods.value = reTodo;
     }
     return { methods, getMethod, addMethod, removeMethod };
-  },
-  {
-    persist: {
-      storage: persistedState.sessionStorage,
-    },
   }
 );

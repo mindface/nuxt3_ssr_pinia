@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-export default {
+export default defineNuxtComponent({
   name: 'AboutPage',
-};
+});
 </script>
