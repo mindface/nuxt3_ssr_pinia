@@ -20,6 +20,7 @@
         <p>{{ item.date }}</p>
         <p><button @click="() => setUpdateMethod(item)">update</button></p>
         <p><button @click="() => removeMethodAction(item.id)">remove</button></p>
+        <!-- <methods-card :item="item" /> -->
       </div>
     </div>
   </section>
@@ -32,10 +33,13 @@ import { onMounted } from "vue";
 import { useMethodStore } from "@/store/method";
 import type { Method } from "@/store/method";
 import { storeToRefs } from "pinia";
+import MethodsCard from "./MethodsCard.vue";
 
 export default {
   name: 'MethodsView',
-  components: {},
+  components: {
+    MethodsCard
+  },
   setup() {
       const methodStore = useMethodStore(); 
       const { getMethod, addMethod, removeMethod } = methodStore;
@@ -117,7 +121,7 @@ export default {
         }
       }
 
-      const removeMethodAction = async (id) => {
+      const removeMethodAction = async (id: number) => {
         console.log(id);
         try {
           const res = await fetch(`http://localhost:3003/v1/method_infos/${id}`, {
