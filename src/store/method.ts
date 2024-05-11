@@ -1,4 +1,3 @@
-import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 
 export interface Method {
@@ -21,7 +20,7 @@ export const useMethodStore = defineStore("method", () =>
       methods.value = [...methods.value, item];
     }
     function removeMethod(id: number) {
-      const reTodo = methods.value.filter((item, index) => {
+      const reTodo = methods.value.filter((item: Method, index: number) => {
         if(id !== item.id ) {
           return item;
         }
