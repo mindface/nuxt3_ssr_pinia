@@ -58,7 +58,7 @@ export default defineNuxtComponent({
         },
       });
       const method = await res.json();
-      getMethod(method);
+      getMethod();
     };
 
     const setUpdateMethod = (item: Method) => {
@@ -73,21 +73,10 @@ export default defineNuxtComponent({
         title: title.value,
         body: body.value,
         cycleTypeIeds: date.value.replace(/-/g, ""),
+        date: "",
         status: "run",
       };
-      try {
-        const res = await fetch(`http://localhost:3003/v1/method_infos`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(addItem),
-        });
-        const response = await res.json();
-        setMethod();
-      } catch (error) {
-        console.log(error);
-      }
+      addMethod(addItem);
     };
 
     onMounted(async () => {

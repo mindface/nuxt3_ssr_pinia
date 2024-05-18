@@ -22,7 +22,8 @@
 <script lang="ts">
 import { defineNuxtComponent } from "#app";
 import { onMounted, watch } from "vue";
-import type { Method } from "../store/method";
+import type { Method } from "@/store/method";
+import { useMethodStore } from "@/store/method";
 import type { PropType } from "vue";
 
 export default defineNuxtComponent({
@@ -32,6 +33,8 @@ export default defineNuxtComponent({
   },
   emits: ["setMethod"],
   setup(props, { emit }) {
+    const methodStore = useMethodStore();
+    const { updateMethod, removeMethod } = methodStore;
     const updateSwitch = ref(false);
     const cardTitle = ref("");
     const cardBody = ref("");
@@ -59,38 +62,11 @@ export default defineNuxtComponent({
         title: cardTitle.value,
         body: cardBody.value,
       };
-      try {
-        const res = await fetch(
-          `http://localhost:3003/v1/method_infos/${updateItem.id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updateItem),
-          },
-        );
-        const response = await res.json();
-        emit("setMethod");
-      } catch (error) {
-        console.log(error);
-      }
+      updateMethod(updateItem);
     };
 
     const removeMethodAction = async (id: number) => {
-      try {
-        const res = await fetch(`http://localhost:3003/v1/method_infos/${id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id: id }),
-        });
-        const response = await res.json();
-        await emit("setMethod");
-      } catch (error) {
-        console.log(error);
-      }
+      removeMethod(id);
     };
 
     watch(

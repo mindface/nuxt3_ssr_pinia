@@ -13,23 +13,74 @@ export const useMethodStore = defineStore(
   "method",
   () => {
     const methods = ref<Method[]>([]);
-    async function getMethod(items: Method[]) {
-      methods.value = [...items];
+    async function getMethod() {
+      try {
+        const res = await fetch("http://localhost:3003/v1/method_infos", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const method = await res.json();
+        methods.value = [...method];
+      } catch (error) {
+        console.error(error);
+      }
     }
 
-    function addMethod(item: Method) {
-      methods.value = [...methods.value, item];
+    async function addMethod(item: Method) {
+      try {
+        const res = await fetch(`http://localhost:3003/v1/method_infos`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(item),
+        });
+        const response = await res.json();
+        getMethod();
+      } catch (error) {
+        console.log(error);
+      }
     }
-    function removeMethod(id: number) {
-      const reTodo = methods.value.filter((item: Method) => {
-        if (id !== item.id) {
-          return item;
-        }
-      });
-      methods.value = reTodo;
+
+    async function updateMethod(item: Method) {
+      try {
+        const res = await fetch(
+          `http://localhost:3003/v1/method_infos/${item.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(item),
+          },
+        );
+        const response = await res.json();
+        getMethod();
+      } catch (error) {
+        console.log(error);
+      }
     }
-    return { methods, getMethod, addMethod, removeMethod };
+
+    async function removeMethod(id: number) {
+      try {
+        const res = await fetch(`http://localhost:3003/v1/method_infos/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: id }),
+        });
+        const response = await res.json();
+        getMethod();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    return { methods, getMethod, addMethod, updateMethod, removeMethod };
   },
+  // ローカルストレージを利用した場合にキャッシュで更新されないため回避
   // {
   //   persist: {
   //     storage: persistedState.sessionStorage,
