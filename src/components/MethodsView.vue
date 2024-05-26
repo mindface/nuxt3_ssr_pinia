@@ -12,7 +12,7 @@
             <input type="submit" value="add" @click="addMethodAction" />
           </div>
           <div class="todo-box" v-for="(item, index) in methods" :key="index">
-            <methods-card :item="item" @set-method="setMethod" />
+            <methods-carder :item="item" @set-method="setMethod" />
           </div>
         </div>
       </section>
@@ -34,7 +34,7 @@ export default defineNuxtComponent({
   },
   setup() {
     const methodStore = useMethodStore();
-    const { getMethod, addMethod, removeMethod } = methodStore;
+    const { getMethod, addMethod } = methodStore;
     const { methods } = storeToRefs(methodStore);
 
     const title = ref("");
@@ -50,14 +50,7 @@ export default defineNuxtComponent({
       status: "",
     });
 
-    const setMethod = async () => {
-      const res = await fetch("http://localhost:3003/v1/method_infos", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const method = await res.json();
+    const setMethod = () => {
       getMethod();
     };
 
