@@ -37,7 +37,7 @@ export const useMethodStore = defineStore(
           },
           body: JSON.stringify(item),
         });
-        const response = await res.json();
+        await res.json();
         getMethod();
       } catch (error) {
         console.log(error);
@@ -56,7 +56,7 @@ export const useMethodStore = defineStore(
             body: JSON.stringify(item),
           },
         );
-        const response = await res.json();
+        await res.json();
         getMethod();
       } catch (error) {
         console.log(error);
@@ -72,7 +72,7 @@ export const useMethodStore = defineStore(
           },
           body: JSON.stringify({ id: id }),
         });
-        const response = await res.json();
+        await res.json();
         getMethod();
       } catch (error) {
         console.log(error);
