@@ -8,21 +8,22 @@ export interface Method {
   cycleTypeIeds: string;
   status: string;
 }
+const baseUrl = "http://localhost:3003";
+const headersObj = {"Content-Type": "application/json",}
 
 export const useMethodStore = defineStore(
   "method",
   () => {
     const methods = ref<Method[]>([]);
+
     async function getMethod() {
       try {
-        const res = await fetch("http://localhost:3003/v1/method_infos", {
+        const res = await fetch(`${baseUrl}/v1/method_infos`, {
           method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: headersObj,
         });
         const method = await res.json();
-        methods.value = [...method];
+        methods.value = structuredClone(method);
       } catch (error) {
         console.error(error);
       }
@@ -30,11 +31,9 @@ export const useMethodStore = defineStore(
 
     async function addMethod(item: Method) {
       try {
-        const res = await fetch(`http://localhost:3003/v1/method_infos`, {
+        const res = await fetch(`${baseUrl}/v1/method_infos`, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: headersObj,
           body: JSON.stringify(item),
         });
         await res.json();
@@ -47,12 +46,10 @@ export const useMethodStore = defineStore(
     async function updateMethod(item: Method) {
       try {
         const res = await fetch(
-          `http://localhost:3003/v1/method_infos/${item.id}`,
+          `${baseUrl}/v1/method_infos/${item.id}`,
           {
             method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
+            headers: headersObj,
             body: JSON.stringify(item),
           },
         );
@@ -65,11 +62,9 @@ export const useMethodStore = defineStore(
 
     async function removeMethod(id: number) {
       try {
-        const res = await fetch(`http://localhost:3003/v1/method_infos/${id}`, {
+        const res = await fetch(`${baseUrl}/v1/method_infos/${id}`, {
           method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: headersObj,
           body: JSON.stringify({ id: id }),
         });
         await res.json();

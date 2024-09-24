@@ -50,9 +50,9 @@ export default defineNuxtComponent({
     const setUpdateMethod = (item: Method) => {
       updateSwitch.value = !updateSwitch.value;
       if (updateSwitch.value) {
+        methodItem.value = item;
         cardTitle.value = methodItem.value.title;
         cardBody.value = methodItem.value.body;
-        methodItem.value = { ...item };
       }
     };
 

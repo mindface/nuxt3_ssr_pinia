@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: true,
   devtools: { enabled: true },
   srcDir: 'src/',
   css: [
@@ -17,4 +18,9 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', href: './icon.png' }],
     },
   },
+  runtimeConfig: {
+    public: {
+      apiUrl: ''
+    }
+  }
 });

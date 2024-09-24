@@ -1,6 +1,6 @@
 <!-- Please remove this file from your project -->
 <template>
-  <client-only>
+  <client-only fallback-tag="h2" fallback="loading...">
     <div class="method-view">
       <section class="section">
         <article class="article">| article</article>
@@ -40,6 +40,7 @@ export default defineNuxtComponent({
     const title = ref("");
     const body = ref("");
     const date = ref("");
+    console.log("---------");
 
     const methodItem = ref<Method>({
       id: 0,
@@ -60,7 +61,7 @@ export default defineNuxtComponent({
       methodItem.value = { ...item };
     };
 
-    const addMethodAction = async () => {
+    const addMethodAction = () => {
       const addItem = {
         id: methods.value.length + 1,
         title: title.value,
@@ -72,7 +73,7 @@ export default defineNuxtComponent({
       addMethod(addItem);
     };
 
-    onMounted(async () => {
+    onMounted(() => {
       setMethod();
     });
 

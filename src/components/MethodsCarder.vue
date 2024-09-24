@@ -48,7 +48,7 @@ const setUpdateMethod = (item: Method) => {
   if (updateSwitch.value) {
     cardTitle.value = methodItem.value.title;
     cardBody.value = methodItem.value.body;
-    methodItem.value = { ...item };
+    methodItem.value = item;
   }
 };
 
@@ -60,7 +60,6 @@ const updateMethodAction = async () => {
   };
   updateMethod(updateItem);
   emits('setMethod');
-  console.log("updateMethodAction-----");
 };
 
 const removeMethodAction = async (id: number) => {
